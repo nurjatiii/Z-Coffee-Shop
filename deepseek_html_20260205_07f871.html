@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z Coffee Shop - Lebak Bulus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D4A76A;
+            --accent-color: #5D4037;
+            --light-color: #F5F1EB;
+            --dark-color: #3E2723;
+            --text-color: #333333;
+            --text-light: #777777;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+            font-weight: 300;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1498804103079-a6351b050096?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .hero h2 span {
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #f0f0f0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+
+        /* Menu Categories */
+        .menu-category {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category-title i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-right: 15px;
+        }
+
+        .category-title h3 {
+            font-size: 28px;
+            color: var(--dark-color);
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px 10px;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .item-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .item-price::before {
+            content: 'Rp ';
+            font-size: 14px;
+        }
+
+        .item-desc {
+            padding: 0 20px 20px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Non-coffee & pastry specific styling */
+        .pastry-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .pastry-item {
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            font-weight: 500;
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            transition: transform 0.3s;
+        }
+
+        .pastry-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 25px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature i {
+            font-size: 36px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-detail i {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-right: 15px;
+            width: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary-color);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content, .contact-content, .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero h2 {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 70px 0;
+            }
+            
+            .hero h2 {
+                font-size: 28px;
+            }
+            
+            section {
+                padding: 50px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-coffee logo-icon"></i>
+                <h1>Z Coffee <span>Shop</span></h1>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Experience Premium Coffee at <span>Z Coffee Shop</span></h2>
+            <p>Selamat datang di Z Coffee Shop Lebak Bulus, tempat di mana biji kopi pilihan bertemu dengan racikan spesial untuk menciptakan pengalaman kopi yang tak terlupakan.</p>
+            <a href="#menu" class="btn">Explore Our Menu</a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Menu</h2>
+                <p>Jelajahi berbagai pilihan kopi spesial, minuman non-kopi, pastry lezat, dan makanan ringan kami</p>
+            </div>
+
+            <!-- Coffee Menu -->
+            <div class="menu-category">
+                <div class="category-title">
+                    <i class="fas fa-coffee"></i>
+                    <h3>Coffee</h3>
+                </div>
+                <div class="menu-items" id="coffeeMenu">
+                    <!-- Coffee items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Non-Coffee Menu -->
+            <div class="menu-category">
+                <div class="category-title">
+                    <i class="fas fa-glass-whiskey"></i>
+                    <h3>Non Coffee</h3>
+                </div>
+                <div class="menu-items" id="nonCoffeeMenu">
+                    <!-- Non-coffee items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Pastry & Cakery Menu -->
+            <div class="menu-category">
+                <div class="category-title">
+                    <i class="fas fa-bread-slice"></i>
+                    <h3>Pastry & Cakery</h3>
+                </div>
+                <div class="pastry-items" id="pastryMenu">
+                    <!-- Pastry items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Light Bites Menu -->
+            <div class="menu-category">
+                <div class="category-title">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Light Bites</h3>
+                </div>
+                <div class="menu-items" id="lightBitesMenu">
+                    <!-- Light bites items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Desserts Menu -->
+            <div class="menu-category">
+                <div class="category-title">
+                    <i class="fas fa-ice-cream"></i>
+                    <h3>Desserts</h3>
+                </div>
+                <div class="menu-items" id="dessertsMenu">
+                    <!-- Desserts items will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" style="background-color: var(--light-color);">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Z Coffee Shop</h2>
+                <p>Cerita di balik secangkir kopi sempurna kami</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Kopi Berkualitas dengan Cita Rasa Terbaik</h3>
+                    <p>Z Coffee Shop Lebak Bulus didirikan dengan satu misi: menghadirkan pengalaman minum kopi yang istimewa di tengah kota. Kami memilih biji kopi terbaik dari berbagai daerah di Indonesia dan dunia, kemudian mengolahnya dengan teknik penyeduhan yang tepat untuk mengekstrak cita rasa sempurna.</p>
+                    <p>Selain kopi spesial, kami juga menyajikan berbagai pilihan minuman non-kopi, pastry buatan sendiri, dan makanan ringan yang cocok untuk menemani waktu santai Anda.</p>
+                    <a href="#contact" class="btn">Visit Us Today</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Interior Z Coffee Shop">
+                </div>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-seedling"></i>
+                    <h4>Biji Kopi Pilihan</h4>
+                    <p>Kami menggunakan biji kopi berkualitas tinggi dari petani terpilih</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-mug-hot"></i>
+                    <h4>Racikan Spesial</h4>
+                    <p>Setiap minuman dibuat dengan resep khusus untuk cita rasa optimal</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-heart"></i>
+                    <h4>Dibuat dengan Cinta</h4>
+                    <p>Setiap sajian dibuat dengan perhatian dan dedikasi penuh</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Visit Our Shop</h2>
+                <p>Datang dan nikmati suasana nyaman di Z Coffee Shop Lebak Bulus</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Informasi Kontak</h3>
+                    <div class="contact-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Alamat</h4>
+                            <p>Jl. Lebak Bulus Raya No. 123<br>Jakarta Selatan, 12440</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Jam Operasional</h4>
+                            <p>Setiap Hari: 07:30 - 22:00 WIB</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Telepon / WhatsApp</h4>
+                            <p>0851-2393-4725</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.317156637392!2d106.77327731476876!3d-6.35371429540566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ef19a6e1eefd%3A0x401e8f1fc28c9e0!2sLebak%20Bulus%2C%20Cilandak%2C%20South%20Jakarta%20City%2C%20Jakarta!5e0!3m2!1sen!2sid!4v1647851234567!5m2!1sen!2sid" width="100%" height="350" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Z Coffee Shop</h4>
+                    <p>Tempat terbaik untuk menikmati kopi spesial dan suasana yang nyaman di Lebak Bulus, Jakarta Selatan.</p>
+                    <div style="margin-top: 15px;">
+                        <a href="#" style="color: #fff; margin-right: 15px; font-size: 20px;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: #fff; margin-right: 15px; font-size: 20px;"><i class="fab fa-facebook"></i></a>
+                        <a href="https://wa.me/6285123934725" style="color: #fff; font-size: 20px;"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Menu Categories</h4>
+                    <ul>
+                        <li><a href="#menu">Coffee</a></li>
+                        <li><a href="#menu">Non Coffee</a></li>
+                        <li><a href="#menu">Pastry & Cakery</a></li>
+                        <li><a href="#menu">Light Bites</a></li>
+                        <li><a href="#menu">Desserts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> Lebak Bulus, Jakarta Selatan</li>
+                        <li><i class="fas fa-phone" style="margin-right: 8px;"></i> 0851-2393-4725</li>
+                        <li><i class="fas fa-clock" style="margin-right: 8px;"></i> 07:30 - 22:00 WIB</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Z Coffee Shop Lebak Bulus. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Data from the screenshot
+        const menuData = {
+            coffee: [
+                { name: "Espresso", price: 22, desc: "Kopi murni ekstrak dengan rasa kuat dan aroma khas" },
+                { name: "Americano", price: 23, desc: "Espresso dengan tambahan air panas" },
+                { name: "V60", price: 25, desc: "Kopi seduhan manual dengan metode pour over" },
+                { name: "French Press", price: 25, desc: "Kopi seduhan dengan metode french press" },
+                { name: "Vietnam Drip", price: 23, desc: "Kopi Vietnam tradisional dengan alat drip khusus" },
+                { name: "ZIGNATURE", price: 26, desc: "Racikan signature Z Coffee Shop" },
+                { name: "Cappuccino", price: 29, desc: "Espresso dengan susu steamed dan busa susu" },
+                { name: "Cafe Latte", price: 29, desc: "Espresso dengan lebih banyak susu steamed" },
+                { name: "Piccolo", price: 23, desc: "Mini latte dengan rasa kopi yang lebih kuat" },
+                { name: "Flat White", price: 29, desc: "Espresso dengan lapisan mikrofoma susu yang halus" },
+                { name: "Affogato coffee", price: 29, desc: "Espresso yang dituang di atas es krim vanilla" },
+                { name: "Caramel Macchiato", price: 34, desc: "Espresso dengan susu, vanila, dan karamel" }
+            ],
+            nonCoffee: [
+                { name: "Chocolate Blend", price: 29, desc: "Cokelat hangat dengan racikan spesial" },
+                { name: "Black Forest Blend", price: 29, desc: "Minuman cokelat dengan rasa black forest" },
+                { name: "Thai Tea/Thai Green Tea", price: 26, desc: "Teh Thailand tradisional dengan rasa unik" },
+                { name: "Lychee Iced Tea", price: 22, desc: "Teh dingin dengan rasa leci yang menyegarkan" },
+                { name: "Iced Tea", price: 17, desc: "Teh dingin klasik" },
+                { name: "Sweet Iced Tea", price: 17, desc: "Teh dingin manis" },
+                { name: "Hot Tea", price: 23, desc: "Teh panas pilihan" },
+                { name: "Mineral Water", price: 10, desc: "Air mineral kemasan" }
+            ],
+            pastry: [
+                "Croissant",
+                "Almondchip Cookies",
+                "Pain Au Chocolate",
+                "NY Cheese Cake",
+                "Tuna Puff",
+                "Cinnamon Roll"
+            ],
+            lightBites: [
+                { name: "Cheese Fries", price: 30, desc: "Kentang goreng dengan keju leleh" },
+                { name: "Mini Wonton", price: 30, desc: "Pangsit mini goreng isi ayam" },
+                { name: "Cassava", price: 20, desc: "Singkong goreng dengan bumbu spesial" },
+                { name: "Roti Canai", price: 30, desc: "Roti canai dengan kuah kari" }
+            ],
+            desserts: [
+                { name: "Brownies Ice Cream", price: 30, desc: "Brownies hangat dengan es krim vanilla" }
+            ]
+        };
+
+        // Function to populate menu items
+        function populateMenuItems() {
+            // Coffee menu
+            const coffeeMenu = document.getElementById('coffeeMenu');
+            menuData.coffee.forEach(item => {
+                coffeeMenu.innerHTML += `
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">${item.price}</div>
+                        </div>
+                        <div class="item-desc">${item.desc}</div>
+                    </div>
+                `;
+            });
+
+            // Non-coffee menu
+            const nonCoffeeMenu = document.getElementById('nonCoffeeMenu');
+            menuData.nonCoffee.forEach(item => {
+                nonCoffeeMenu.innerHTML += `
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">${item.price}</div>
+                        </div>
+                        <div class="item-desc">${item.desc}</div>
+                    </div>
+                `;
+            });
+
+            // Pastry menu
+            const pastryMenu = document.getElementById('pastryMenu');
+            menuData.pastry.forEach(item => {
+                pastryMenu.innerHTML += `
+                    <div class="pastry-item">
+                        ${item}
+                    </div>
+                `;
+            });
+
+            // Light bites menu
+            const lightBitesMenu = document.getElementById('lightBitesMenu');
+            menuData.lightBites.forEach(item => {
+                lightBitesMenu.innerHTML += `
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">${item.price}</div>
+                        </div>
+                        <div class="item-desc">${item.desc}</div>
+                    </div>
+                `;
+            });
+
+            // Desserts menu
+            const dessertsMenu = document.getElementById('dessertsMenu');
+            menuData.desserts.forEach(item => {
+                dessertsMenu.innerHTML += `
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">${item.price}</div>
+                        </div>
+                        <div class="item-desc">${item.desc}</div>
+                    </div>
+                `;
+            });
+        }
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+            this.innerHTML = nav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                const nav = document.getElementById('mainNav');
+                const mobileBtn = document.getElementById('mobileMenuBtn');
+                if (nav.classList.contains('active')) {
+                    nav.classList.remove('active');
+                    mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            populateMenuItems();
+        });
+    </script>
+</body>
+</html>
